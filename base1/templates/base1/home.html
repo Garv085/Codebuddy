@@ -1,0 +1,56 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<style>
+    .home-container {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr; /* Three columns layout */
+        gap: 20px; /* Adds space between the grid columns */
+        padding: 20px; /* Adds padding around the entire grid */
+        background-color: #f8f9fa; /* Light background for contrast */
+    }
+
+    /* Styles for each column */
+    .home-container > div {
+        background-color: white; /* White background for content boxes */
+        border-radius: 8px; /* Rounded corners */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+        padding: 15px; /* Padding inside each column */
+    }
+
+    .activity-feed {
+        max-height: 500px; /* Limit the height of the activity feed */
+        overflow-y: auto; /* Add scroll if content overflows */
+    }
+
+    h3 {
+        color: #343a40; /* Dark color for headings */
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+        .home-container {
+            grid-template-columns: 1fr; /* Single column layout on smaller screens */
+        }
+    }
+</style>
+
+<div class="home-container">
+    <!-- Browse Languages Column -->
+    <div>
+        {% include 'base1/topics_component.html' %}
+    </div>
+
+    <!-- Rooms Column -->
+    <div>
+        {% include 'base1/feed_component.html' %}
+    </div>
+
+    <!-- Activity Feed Column -->
+    <div class="activity-feed">
+        {% include 'base1/activity_component.html' %}
+    </div>
+</div>
+
+{% endblock %}

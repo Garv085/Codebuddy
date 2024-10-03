@@ -1,0 +1,131 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeBuddy</title>
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        h3 {
+            color: #333;
+            font-weight: 600;
+        }
+
+        a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        /* Logo Styles */
+        .logo-container {
+            position: absolute;
+            top: 20px; /* Adjust as needed */
+            right: 20px; /* Adjust as needed */
+        }
+
+        .logo {
+            max-width: 100px; /* Adjust logo size */
+            height: auto; /* Maintain aspect ratio */
+        }
+
+        /* Search Form Styles */
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px auto;
+        }
+
+        .search-container input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            border-radius: 25px;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .search-container input[type="text"]::placeholder {
+            color: #999;
+        }
+
+        .search-container input[type="text"]:focus {
+            border-color: #007bff;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        /* User Authentication Links */
+        .auth-links {
+            text-align: center;
+            margin: 10px;
+        }
+
+        .auth-links a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 25px;
+            transition: background-color 0.3s ease;
+        }
+
+        .auth-links a:hover {
+            background-color: #0056b3;
+        }
+
+        /* Greeting Message */
+        .greeting {
+            text-align: center;
+            margin: 20px;
+            font-size: 1.25rem;
+            color: #555;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Logo Section -->
+    <div class="logo-container">
+        <img src="{% static 'images/cbd.png' %}" alt="CodeBuddy Logo" class="logo" />
+    </div>
+
+    <!-- Search Form -->
+    <div class="search-container">
+        <form method="GET" action="{% url 'home' %}">
+            <input type="text" name="q" placeholder="Search here..." />
+        </form>
+    </div>
+
+    <!-- Authentication and Greeting Section -->
+    <div class="auth-links">
+        {% if request.user.is_authenticated %}
+        <div class="greeting">
+            <h3>Hello, {{ user.username }}</h3>
+        </div>
+        <a href="{% url 'logout-page' %}">Logout</a>
+        {% else %}
+        <a href="{% url 'login-page' %}">Login</a>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>

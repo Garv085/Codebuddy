@@ -1,0 +1,97 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    .form-container {
+        max-width: 400px; /* Limit the width of the form */
+        margin: 50px auto; /* Center the form on the page */
+        padding: 20px; /* Add padding inside the form */
+        border: 1px solid #ced4da; /* Border around the form */
+        border-radius: 8px; /* Rounded corners */
+        background-color: #ffffff; /* White background for the form */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    h2 {
+        text-align: center; /* Center the heading */
+        color: #343a40; /* Dark color for the heading */
+    }
+
+    label {
+        display: block; /* Make labels block elements */
+        margin-top: 10px; /* Space above each label */
+        font-weight: bold; /* Make labels bold */
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        width: 100%; /* Full width input */
+        padding: 10px; /* Padding inside the input */
+        margin-top: 5px; /* Space above input */
+        border: 1px solid #ced4da; /* Border for input */
+        border-radius: 4px; /* Slightly rounded corners for inputs */
+        font-size: 16px; /* Font size for inputs */
+        box-sizing: border-box; /* Ensures padding is included in the total width */
+    }
+
+    input[type="submit"] {
+        width: 100%; /* Full width submit button */
+        padding: 10px; /* Padding inside the button */
+        margin-top: 15px; /* Space above the button */
+        background-color: #007bff; /* Bootstrap primary color */
+        color: white; /* Text color for button */
+        border: none; /* Remove border */
+        border-radius: 4px; /* Slightly rounded corners for button */
+        font-size: 16px; /* Font size for button */
+        cursor: pointer; /* Pointer cursor on hover */
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+
+    p {
+        text-align: center; /* Center align paragraph */
+    }
+
+    a {
+        color: #007bff; /* Link color */
+        text-decoration: none; /* Remove underline */
+    }
+
+    a:hover {
+        text-decoration: underline; /* Underline on hover */
+    }
+</style>
+
+<div class="form-container">
+    {% if page == 'login' %}
+    <h2>Login</h2>
+    <form method="POST" action="{% url 'login-page' %}">
+        {% csrf_token %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" placeholder="username" required />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" placeholder="password" required />
+
+        <input type="submit" value="Submit" />
+    </form>
+
+    <p>Haven't signed up yet?</p>
+    <a href="{% url 'register-page' %}">Register</a>
+
+    {% else %}
+    <h2>Register</h2>
+    <form method="POST" action="{% url 'register-page' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Register" />
+
+        <p>Already signed up?</p>
+        <a href="{% url 'login-page' %}">Login</a>
+    </form>
+    {% endif %}
+</div>
+
+{% endblock %}

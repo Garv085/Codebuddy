@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Activity Feed</title>
+    <style>
+        /* Activity Feed Styles */
+        .activity-feed-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .activity-feed-container h3 {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .activity-message {
+            padding: 10px 0;
+        }
+
+        .activity-message small {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .activity-message p {
+            color: #333;
+            font-size: 1rem;
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+
+        .activity-message a {
+            text-decoration: none;
+            color: #007bff;
+        }
+
+        .activity-message a:hover {
+            text-decoration: underline;
+        }
+
+        .activity-message hr {
+            border: 0;
+            border-top: 1px solid #e0e0e0;
+            margin: 10px 0;
+        }
+
+        /* Delete Link */
+        .delete-link {
+        display: inline-block;
+        padding: 5px 12px;
+        background-color: #000000; /* Soft red */
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        font-weight: bold;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .delete-link:hover {
+            background-color: #000000; /* Darker red on hover */
+            transform: translateY(-2px); /* Subtle lift effect */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3); /* Slightly bigger shadow */
+        }
+
+        .delete-link:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.5); /* Focus ring for accessibility */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="activity-feed-container">
+        <h3>Activity Feed</h3>
+        {% for message in room_messages %}
+        <div class="activity-message">
+            <small>
+                <a href="{% url 'user-profile' message.user.id %}">@{{ message.user }}</a> 
+                {{ message.createds|timesince }} 
+            </small>
+            <small> replied to "{{ message.room }}" </small>
+
+            <p>{{ message.body }}</p>
+
+            {% if request.user == message.user %}
+            <a href="{% url 'delete-message' message.id %}" class="delete-link">Delete</a>
+            {% endif %}
+            <hr>
+        </div>
+        {% endfor %}
+    </div>
+
+</body>
+
+</html>

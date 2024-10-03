@@ -1,0 +1,58 @@
+<h3>Browse Languages</h3>
+<hr>
+<div class="topics-container">
+    <a href="{% url 'create-topic' %}" class="add-topic-btn">Add Topic</a>
+    <div class="topic-item">
+        <a href="{% url 'home' %}" class="topic-link">All</a>    
+    </div>
+    {% for topic in topics %}
+    <div class="topic-item">
+        <a href="{% url 'home' %}?q={{ topic.name }}" class="topic-link">{{ topic }}</a>    
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .topics-container {
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column; /* Align items in a column */
+        gap: 10px; /* Space between each item */
+        margin-top: 10px; /* Space above the container */
+    }
+
+    /* Add Topic button */
+    .add-topic-btn {
+        display: inline-block; /* Treat as a button */
+        background-color: #007bff; /* Primary button color */
+        color: white; /* White text */
+        padding: 10px 20px; /* Padding for the button */
+        border-radius: 5px; /* Rounded corners */
+        text-align: center; /* Center text inside the button */
+        font-weight: bold; /* Make text bold */
+        text-decoration: none; /* Remove underline from link */
+        transition: background-color 0.3s; /* Smooth hover effect */
+    }
+
+    .add-topic-btn:hover {
+        background-color: #0056b3; /* Darker shade on hover */
+    }
+
+    .topic-item {
+        background-color: #f0f0f0; /* Light background for topic items */
+        border: 1px solid #ccc; /* Border around each topic */
+        border-radius: 5px; /* Rounded corners */
+        padding: 10px; /* Padding for content inside topic items */
+        transition: background-color 0.3s; /* Smooth transition for hover effect */
+    }
+
+    .topic-link {
+        text-decoration: none; /* Remove underline from links */
+        color: #007bff; /* Link color */
+        font-weight: bold; /* Bold text */
+        display: block; /* Make the entire area clickable */
+    }
+
+    .topic-item:hover {
+        background-color: #e0e0e0; /* Change background color on hover */
+    }
+</style>

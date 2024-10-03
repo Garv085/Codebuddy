@@ -1,0 +1,62 @@
+{% extends "main.html" %}
+
+{% block content %}
+
+<style>
+    .delete-confirmation {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        font-family: Arial, sans-serif;
+    }
+
+    .delete-confirmation p {
+        font-size: 1.1rem;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .delete-confirmation a {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #555;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-right: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .delete-confirmation a:hover {
+        background-color: #333;
+    }
+
+    .delete-confirmation input[type="submit"] {
+        padding: 10px 20px;
+        background-color: #e74c3c; /* Red for delete */
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .delete-confirmation input[type="submit"]:hover {
+        background-color: #c0392b;
+    }
+</style>
+
+<div class="delete-confirmation">
+    <form method="POST" action="">
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{obj}}"?</p>
+        <a href="{{request.META.HTTP_REFERER}}">Go Back</a>
+        <input type="submit" name="Confirm" value="Confirm">
+    </form>
+</div>
+
+{% endblock %}

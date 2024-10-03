@@ -1,0 +1,90 @@
+<h3>{{count_rooms}} rooms available</h3>
+<a href="{% url 'create-room' %}" class="create-room-button">Create Room</a>
+<div class="room-list"> 
+    {% for room in rooms %}
+    <div class="room-card">
+        {% if request.user == room.host %}
+        <div class="room-actions">
+            <a href="{% url 'update-room' room.id %}" class="action-button">Edit</a>
+            <a href="{% url 'delete-room' room.id %}" class="action-button delete-button">Delete</a>
+        </div>
+        {% endif %}
+        <span class="room-host"><a href="{% url 'user-profile' room.host.id %}">@{{room.host}}</a></span>
+        <h5 class="room-title">{{room.id}} -- <a href="{% url 'room' room.id %}">{{room.name}}</a></h5>
+        <small class="room-topic">{{room.topic}}</small>
+        <hr>
+    </div>
+    {% endfor %}
+</div>
+
+<style>
+    .create-room-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #28a745; /* Green for create button */
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        transition: background-color 0.3s ease;
+    }
+
+    .create-room-button:hover {
+        background-color: #218838;
+    }
+
+    .room-list {
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Space between room cards */
+    }
+
+    .room-card {
+        padding: 15px;
+        background-color: #f8f9fa; /* Light gray background */
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .room-actions {
+        display: flex;
+        gap: 10px; /* Space between action buttons */
+        margin-bottom: 10px; /* Space below the action buttons */
+    }
+
+    .action-button {
+        padding: 5px 10px;
+        background-color: #007bff; /* Blue for edit */
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+    }
+
+    .action-button:hover {
+        background-color: #0056b3;
+    }
+
+    .delete-button {
+        background-color: #dc3545; /* Red for delete */
+    }
+
+    .delete-button:hover {
+        background-color: #c82333;
+    }
+
+    .room-host {
+        font-weight: bold;
+        color: #333; /* Dark text for the host */
+    }
+
+    .room-title {
+        margin: 5px 0;
+        color: #007bff; /* Blue for room title */
+    }
+
+    .room-topic {
+        color: #6c757d; /* Gray for topic */
+    }
+</style>
